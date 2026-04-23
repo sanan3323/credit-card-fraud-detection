@@ -1,0 +1,12 @@
+# Starter requirements. Once you've run the notebook successfully in your own env,
+# replace this file with the output of `pip freeze` so versions are pinned exactly.
+
+pandas>=2.0
+numpy>=1.24
+scikit-learn>=1.3
+xgboost>=2.0
+shap>=0.44
+imbalanced-learn>=0.11
+matplotlib>=3.7
+seaborn>=0.12
+jupyter
