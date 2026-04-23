@@ -2,6 +2,12 @@
 
 Fraud scoring model for credit card transactions. Five models compared. The operating threshold is picked by minimizing expected dollar loss under a cost matrix, not set at 0.5.
 
+## What the model does
+
+Scores each transaction with a fraud probability, then picks an action (allow, review, block) using two thresholds. The thresholds come from minimizing expected dollar loss under the cost matrix.
+
+For deployment, monitoring, and retraining rules, see docs/PLAYBOOK.md.
+
 ## Results
 
 Test set: 56,962 transactions, 98 fraud.
@@ -109,12 +115,6 @@ credit-card-fraud-detection/
 ├── .gitignore
 └── README.md
 ```
-
-## What the model does
-
-Scores each transaction with a fraud probability, then picks an action (allow, review, block) using two thresholds. The thresholds come from minimizing expected dollar loss under the cost matrix.
-
-For deployment, monitoring, and retraining rules, see docs/PLAYBOOK.md.
 
 ## Notes
 
