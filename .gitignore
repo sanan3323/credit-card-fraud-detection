@@ -1,0 +1,37 @@
+# --- Project data and artifacts ---
+data/*
+!data/.gitkeep
+artifacts/*
+!artifacts/.gitkeep
+# Commit the small serving artifact so the API/tests/Docker run out of the box.
+!artifacts/fraud_model_artifact.pkl
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual envs
+venv/
+env/
+.venv/
+ENV/
+
+# Distribution / packaging
+*.egg-info/
+dist/
+build/
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+
+# --- IDE ---
+.vscode/
+.idea/
+*.swp
+
+# --- OS ---
+.DS_Store
+Thumbs.db

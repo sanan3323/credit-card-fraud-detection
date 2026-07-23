@@ -1,0 +1,40 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Fraud scoring service — FastAPI (via Mangum) on a Lambda container image behind
+  an HTTP API Gateway. Scales to zero, so an idle demo endpoint costs ~$0/month.
+
+Globals:
+  Function:
+    Timeout: 30
+    MemorySize: 1024   # SHAP + XGBoost need headroom; tune down if cold starts allow
+
+Resources:
+  FraudFunction:
+    Type: AWS::Serverless::Function
+    Metadata:
+      Dockerfile: Dockerfile.lambda
+      DockerContext: ..
+      DockerTag: latest
+    Properties:
+      PackageType: Image
+      Architectures: [x86_64]
+      Environment:
+        Variables:
+          PREDICTION_LOG: /tmp/predictions.jsonl   # Lambda's only writable path
+      Events:
+        Predict:
+          Type: HttpApi
+          Properties:
+            Path: /predict
+            Method: POST
+        Health:
+          Type: HttpApi
+          Properties:
+            Path: /health
+            Method: GET
+
+Outputs:
+  ApiUrl:
+    Description: Base URL of the fraud scoring API
+    Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com"

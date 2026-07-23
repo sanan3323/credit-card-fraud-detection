@@ -1,0 +1,6 @@
+# Extra dependencies only needed to retrain the model from raw data (src/train.py).
+-r requirements.txt
+imbalanced-learn==0.13.0
+matplotlib==3.10.0
+seaborn==0.13.2
+jupyter

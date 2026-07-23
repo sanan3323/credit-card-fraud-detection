@@ -1,0 +1,5 @@
+# Drift monitoring runs as a separate job/pipeline, so Evidently keeps its own
+# (tighter) dependency set here rather than constraining the service/test env.
+# Install standalone:  pip install -r requirements-monitoring.txt
+pandas==2.2.3
+evidently==0.5.1
