@@ -163,7 +163,12 @@ def main() -> None:
         pickle.dump(artifact, f)
     args.metrics_out.write_text(
         json.dumps(
-            {"model": best_name, "thresholds": thresholds, "metrics": artifact["metrics"], "comparison": comparison},
+            {
+                "model": best_name,
+                "thresholds": thresholds,
+                "metrics": artifact["metrics"],
+                "comparison": comparison,
+            },
             indent=2,
         )
     )

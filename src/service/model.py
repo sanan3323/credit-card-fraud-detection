@@ -50,7 +50,7 @@ class FraudModel:
         self._explainer = None  # lazily built; SHAP TreeExplainer construction is cheap but deferred
 
     @classmethod
-    def from_path(cls, path: Path | str = ARTIFACT_PATH) -> "FraudModel":
+    def from_path(cls, path: Path | str = ARTIFACT_PATH) -> FraudModel:
         with open(path, "rb") as f:
             return cls(pickle.load(f))
 

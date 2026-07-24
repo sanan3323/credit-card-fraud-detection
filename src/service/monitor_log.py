@@ -10,7 +10,7 @@ from __future__ import annotations
 import json
 import logging
 import os
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import TYPE_CHECKING
 
@@ -22,9 +22,9 @@ logger = logging.getLogger("fraud-service")
 LOG_PATH = Path(os.getenv("PREDICTION_LOG", "/tmp/predictions.jsonl"))
 
 
-def log_prediction(transaction: dict, result: "Decision") -> None:
+def log_prediction(transaction: dict, result: Decision) -> None:
     record = {
-        "ts": datetime.now(timezone.utc).isoformat(),
+        "ts": datetime.now(UTC).isoformat(),
         "score": result.score,
         "decision": result.decision,
         **transaction,
