@@ -4,7 +4,11 @@
 
 A cost-optimised credit-card fraud model **taken from notebook to a deployed, monitored service**. The model picks its operating point by minimising expected dollar loss (not a 0.5 cutoff), serves scores over a REST API with a SHAP explanation per decision, ships as a container, deploys to AWS Lambda behind API Gateway via CI/CD, and is watched for data drift with Evidently.
 
-> **Live endpoint:** `POST https://<your-api-id>.execute-api.<region>.amazonaws.com/predict` — set after `sam deploy` (see [Deploy](#deploy-to-aws)).
+> **Live endpoint** (AWS Lambda, eu-central-1):
+> - `GET  https://hqunw5qc79.execute-api.eu-central-1.amazonaws.com/health`
+> - `POST https://hqunw5qc79.execute-api.eu-central-1.amazonaws.com/predict`
+>
+> Scales to zero, so the first request after idle may cold-start (~20–30s); retry once and it's fast.
 
 ## Architecture
 
@@ -74,6 +78,14 @@ ruff check src tests
 ```
 
 `decision` is `block | review | allow` from the cost-based two-tier policy; `top_features` are the SHAP drivers of *this* score.
+
+Try the live API (all-zero features → a clear "allow"):
+
+```bash
+curl -s https://hqunw5qc79.execute-api.eu-central-1.amazonaws.com/predict \
+  -H 'Content-Type: application/json' \
+  -d "{\"Time\":40000,\"Amount\":149.62,$(python3 -c "print(','.join(f'\\\"V{i}\\\":0' for i in range(1,29)))")}"
+```
 
 ## Deploy to AWS
 
