@@ -11,6 +11,7 @@ from __future__ import annotations
 import logging
 
 from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
 
 from .model import get_model
 from .monitor_log import log_prediction
@@ -24,6 +25,12 @@ app = FastAPI(
     version="1.0.0",
     description="Cost-based credit-card fraud scoring with SHAP explanations.",
 )
+
+
+@app.get("/", include_in_schema=False)
+def root() -> RedirectResponse:
+    """Send the bare URL to the interactive API docs."""
+    return RedirectResponse(url="/docs")
 
 
 @app.get("/health", response_model=HealthResponse)

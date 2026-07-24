@@ -23,16 +23,18 @@ Resources:
         Variables:
           PREDICTION_LOG: /tmp/predictions.jsonl   # Lambda's only writable path
       Events:
-        Predict:
+        # Catch-all so the whole FastAPI app is reachable, including the
+        # interactive Swagger UI at /docs and the OpenAPI spec at /openapi.json.
+        Proxy:
           Type: HttpApi
           Properties:
-            Path: /predict
-            Method: POST
-        Health:
+            Path: /{proxy+}
+            Method: ANY
+        Root:
           Type: HttpApi
           Properties:
-            Path: /health
-            Method: GET
+            Path: /
+            Method: ANY
 
 Outputs:
   ApiUrl:

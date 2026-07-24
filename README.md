@@ -4,11 +4,10 @@
 
 A cost-optimised credit-card fraud model **taken from notebook to a deployed, monitored service**. The model picks its operating point by minimising expected dollar loss (not a 0.5 cutoff), serves scores over a REST API with a SHAP explanation per decision, ships as a container, deploys to AWS Lambda behind API Gateway via CI/CD, and is watched for data drift with Evidently.
 
-> **Live endpoint** (AWS Lambda, eu-central-1):
-> - `GET  https://hqunw5qc79.execute-api.eu-central-1.amazonaws.com/health`
-> - `POST https://hqunw5qc79.execute-api.eu-central-1.amazonaws.com/predict`
+> **Live demo** (AWS Lambda, eu-central-1) — **[try it in your browser →](https://hqunw5qc79.execute-api.eu-central-1.amazonaws.com/docs)** (interactive Swagger UI: expand `POST /predict` → "Try it out" → Execute).
+> - `GET  /health` · `POST /predict` · base URL redirects to the docs.
 >
-> Scales to zero, so the first request after idle may cold-start (~20–30s); retry once and it's fast.
+> Scales to zero, so the first request after idle may cold-start (~20s); retry once and it's fast.
 
 ## Architecture
 
