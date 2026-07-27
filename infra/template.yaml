@@ -3,6 +3,7 @@ Transform: AWS::Serverless-2016-10-31
 Description: >
   Fraud scoring service — FastAPI (via Mangum) on a Lambda container image behind
   an HTTP API Gateway. Scales to zero, so an idle demo endpoint costs ~$0/month.
+  Deployed automatically via GitHub Actions OIDC (see .github/workflows/deploy.yml).
 
 Globals:
   Function:
