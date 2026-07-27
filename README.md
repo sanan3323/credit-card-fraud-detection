@@ -4,7 +4,7 @@
 
 A cost-optimised credit-card fraud model **taken from notebook to a deployed, monitored service**. The model picks its operating point by minimising expected dollar loss (not a 0.5 cutoff), serves scores over a REST API with a SHAP explanation per decision, ships as a container, deploys to AWS Lambda behind API Gateway via CI/CD, and is watched for data drift with Evidently.
 
-> **Live demo** (AWS Lambda, eu-central-1) — **[try it in your browser →](https://hqunw5qc79.execute-api.eu-central-1.amazonaws.com/docs)** (interactive Swagger UI: expand `POST /predict` → "Try it out" → Execute).
+> **Live demo** (AWS Lambda, eu-central-1) — **[try it in your browser →](https://f0d7egu13f.execute-api.eu-central-1.amazonaws.com/docs)** (interactive Swagger UI: expand `POST /predict` → "Try it out" → Execute).
 > - `GET  /health` · `POST /predict` · base URL redirects to the docs.
 >
 > Scales to zero, so the first request after idle may cold-start (~20s); retry once and it's fast.
@@ -81,7 +81,7 @@ ruff check src tests
 Try the live API (all-zero features → a clear "allow"):
 
 ```bash
-curl -s https://hqunw5qc79.execute-api.eu-central-1.amazonaws.com/predict \
+curl -s https://f0d7egu13f.execute-api.eu-central-1.amazonaws.com/predict \
   -H 'Content-Type: application/json' \
   -d "{\"Time\":40000,\"Amount\":149.62,$(python3 -c "print(','.join(f'\\\"V{i}\\\":0' for i in range(1,29)))")}"
 ```
